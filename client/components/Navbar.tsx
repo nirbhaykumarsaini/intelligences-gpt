@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+
 
 type User = {
   name:string,
@@ -61,38 +63,49 @@ const Header = () => {
   
 
   return (
-    <header className="text-white shadow-sm sticky top-0 z-50 w-full">
-      <div className="flex justify-between items-center px-4 py-2">
-        <div className="flex items-center space-x-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-8">
+        <div className="flex items-center gap-4">
           {token && (
-            <button onClick={toggleSidebar}>
-              <Menu size={24} className="text-gray-600" />
-            </button>
+            <Button 
+              onClick={toggleSidebar}
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-gray-100"
+            >
+              <Menu className="h-10 w-10 text-gray-600" />
+            </Button>
           )}
-          <h1 className="font-semibold text-xl text-gray-600">Intelligence GPT</h1>
-        </div>
-        <div>
-          <p className="font-semibold text-gray-600">New Chat</p>
+          <Link href="/" className="flex items-center">
+            <span className="text-xl font-bold text-gray-800 hover:text-gray-900 transition-colors">
+              IntelligenceGPT
+            </span>
+          </Link>
         </div>
 
-        {token ? (
-          <div className="flex items-center">
-            {/* Pass user data to PopoverDemo */}
-            <PopoverDemo  user={user?.name || "Guest"} />
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <Link href={"/signin"}>
-              <Button className="bg-black hover:bg-black">Log in</Button>
-            </Link>
-            <Link href={"/signup"}>
-              <Button className="bg-black hover:bg-black">Sign up</Button>
-            </Link>
-            
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          {token && (
+            <Button 
+             
+              className="shadow-none hidden sm:flex items-center gap-2 border-gray-200 bg-white  text-gray-700"
+              onClick={() => {/* Add new chat handler */}}
+            >
+              <span>New Chat</span>
+              <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-gray-100 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                <span className="text-xs">⌘</span>N
+              </kbd>
+            </Button>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          {token && (
+            <div className="flex items-center gap-4">
+              <PopoverDemo user={user?.name || "G"} />
+            </div>
+          )}
+        </div>
       </div>
-      
     </header>
   );
 };

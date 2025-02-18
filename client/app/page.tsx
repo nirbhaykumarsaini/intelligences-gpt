@@ -41,7 +41,7 @@ export default function Home() {
   const fetchChat = async (chatId: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/chat/${chatId}`, {
+      const response = await fetch(`http://localhost:8000/chat/${chatId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/chat", {
+      const res = await fetch("http://localhost:8000/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

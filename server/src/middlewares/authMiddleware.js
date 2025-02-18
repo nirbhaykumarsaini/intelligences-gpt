@@ -5,8 +5,7 @@ const User = require("../models/User");
 
 async function userAuth(req, res, next) {
     try {
-        // console.log("req:",req);
-    // 1. Check Authorization header exists
+   
     const authHeader = req.headers["Authorization"] || req.headers["authorization"];
     // console.log(authHeader);
 
@@ -14,14 +13,14 @@ async function userAuth(req, res, next) {
         throw new Error('Authorization header missing');
     }
 
-    // 2. Verify Bearer token format
+  
     const [bearer, token] = authHeader.split(' ');
     // console.log(bearer,token);
     if (bearer !== 'Bearer' || !token) {
         throw new Error('Invalid token format');
     }
 
-    // 3. Verify JWT signature
+
     let decoded;
     try {
         decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -30,7 +29,6 @@ async function userAuth(req, res, next) {
     }
 
     const user = await User.findById(decoded.userId).select('_id');
-
 
     if (!user) {
         throw new Error('User no longer exists');

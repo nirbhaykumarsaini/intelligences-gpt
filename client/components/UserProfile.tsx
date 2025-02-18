@@ -9,12 +9,14 @@ import Image from "next/image";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { toast } from 'react-hot-toast';
+import { Avatar, AvatarFallback } from "./ui/avatar";
+
 
 type PopoverDemoProps = {
     user: string | null; // Allowing null for user
-  };
+};
 
-export const PopoverDemo : React.FC<PopoverDemoProps> = ({user}) => {
+export const PopoverDemo: React.FC<PopoverDemoProps> = ({ user }) => {
 
     const router = useRouter();
 
@@ -27,8 +29,12 @@ export const PopoverDemo : React.FC<PopoverDemoProps> = ({user}) => {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" className="shadow-none">
-                    <Image className="rounded-full bg-slate-100" src={"https://placehold.co/32x32"} alt="user" width={32} height={32} />
+                <Button className="shadow-none">
+                    <Avatar className="h-8 w-8">
+                        <AvatarFallback className="bg-blue-100 text-blue-800">
+                            {user ? user.toUpperCase() : 'G'}
+                        </AvatarFallback>
+                    </Avatar>
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-50 mr-9 p-2 bg-slate-100 border mt-2 rounded">
@@ -36,7 +42,7 @@ export const PopoverDemo : React.FC<PopoverDemoProps> = ({user}) => {
                     <li >
                         <Link href={"/view-profile"} className="flex gap-3">
                             <UserCircle className="w-5 h-5 text-gray-600" />
-                            <span  className="text-sm font-medium text-gray-700">{user}</span>
+                            <span className="text-sm font-medium text-gray-700">{user}</span>
                         </Link>
 
                     </li>

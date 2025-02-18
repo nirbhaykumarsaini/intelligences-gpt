@@ -16,7 +16,7 @@ export const useChats = () => {
   const fetchChats = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/chat", {
+      const response = await fetch("http://localhost:8000/chat", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const useDeleteChat = () => {
   const deleteChat = useCallback(async (chatId: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/chat/${chatId}`, {
+      const response = await fetch(`http://localhost:8000/chat/${chatId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

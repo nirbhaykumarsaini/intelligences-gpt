@@ -1,9 +1,11 @@
+const logger = require("../config/winston");
 const User = require("../models/User");
 const { validateSignUpData, validateSignInData } = require("../utils/validation");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
+    //Using Try...Catch error handling
     try {
         validateSignUpData(req);
         const { name, email, password } = req.body;
@@ -21,6 +23,7 @@ exports.signup = async (req, res, next) => {
         
         res.status(201).json({ message: "User created successfully!", user });
     } catch (err) {
+        // error handling middleware 
         next(err);
     }
 };
